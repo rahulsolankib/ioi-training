@@ -1,0 +1,71 @@
+#include<stdio.h>
+int min =0;
+int max;
+int n;
+void log1(int i,int j,int k,int b[30][30],int arr[30])
+{
+	if(j>k||i>n)
+		return;
+	
+	if(min>=arr[i])
+	{
+		min=arr[i];
+		b[i][j]=b[i-1][j-1];
+		//printf("HY%d   %d  %d    %d\n",b[i-1][j-1],b[i][j],i,j );
+	}
+	else{
+	if(b[i][j-1]>=b[i-1][j]+arr[i])
+	{
+		b[i][j]=b[i][j-1];
+		// printf("H%d  %d    %d\n",b[i][j],i,j );
+	}
+	else
+	{
+		b[i][j]=b[i-1][j]+arr[i];
+		//	printf("%d  %d    %d\n",b[i][j],i,j );
+	}
+	}
+	if(max<b[i][j])
+	{
+		max=b[i][j];
+	}
+	log1(++i,j,k,b,arr);
+}
+int main()
+{
+	int arr[10000];
+	int b[30][30]={0};
+	int k;
+	scanf("%d %d",&n,&k);
+	arr[0]=0;
+	for(int i=1;i<=n;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	for (int i = 1; i <=n; ++i)
+	{
+		
+	for(int j=0;j<=0;j++)
+	{
+		b[i][j]=b[i-1][j]+arr[i];
+		//printf("%d %d  %d\n",b[i][j],i,j);
+	}
+	}
+	for (int j = 1; j<=k; ++j)
+	{
+		log1(1,j,2,b,arr);
+		min=0;
+	}
+	/*printf("TABLE\n");
+	
+		for (int j = 0; j <=k; ++j)
+		{
+			for (int i = 1; i <=n; ++i)
+			{
+				printf("%d\t",b[i][j] );
+			}
+			printf("\n");
+		}*/
+	printf("%d\n",max );
+	return 0;
+}
